@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="杨联政">   	
+    <title>Hello world</title>
+    <meta name="description" content="个人网站，杨联政"/>
+    <meta name="keywords" content="个人网站，杨联政"/>
+    
+    <!-- 不支持IE8及以下版本浏览器 -->
+    <!--[if lte IE 8]>
+        <script>window.location.href="plugns/killie/"</script>
+    <![endif]--> 
+    
+    <!-- favicon图标 -->
+    <link rel="shortcut icon" href="favicon.ico">
+    
+   <!-- main page styles -->
+    <link rel="stylesheet" type="text/css" href="CSS/page.css">
+    <link rel="stylesheet" type="text/css" href="CSS/side.css">
+      
+    <!--javascript for live2d-->
+ 	<script type="text/javascript" src="js/pixi.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/live2d.min.js" charset="utf-8"></script>
+  	<script type="text/javascript" src="js/pixi-live2d.js" charset="utf-8"></script>
+
+  	
+  	<!--stylecss-->
+  	<style>
+            * {
+                margin: 0px;
+                padding: 0px;
+                border: 0px;
+            }            
+    </style>
+    
+     <!--javascript for onfocus特效-->
+    <script type="text/javascript">
+	window.onblur = function() {
+    document.title = "(●—●)奔溃啦！";
+};
+	window.onfocus = function() {
+    document.title = "Hello World";
+}
+    </script>
+</head>
+	
+<body>
+ 	<div id="live2d"   style="position: fixed;bottom:38%;right: 98%;" ></div>
+ 	<script type="text/javascript" src="js/live2d-mod.js" charset="utf-8"></script>
+ 	  	
+<div class="site-wrapper">
+<div style="position:relative;">
+
+<header class="main-header " style="background-image: url(img/bg.jpg)"> 
+<h1 style="position: absolute;padding-top: 20%;width: 100%;font-size: 5rem;color: #fff;">Hello world</h1>
+
+</header>
+</div>		
+
+
+<ul id="nav" >
+    <li >
+  	<form id="search-form">
+  	<input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  	</form>
+	</li>
+	<li><a href="" class="nav-link current" style="color: white;">首页</a></li>
+	<li><a href="page/about.html" class="nav-link" target="_blank" style="color: white;">关于</a></li>
+	<li class="nav-dropdown-container language">
+  	<a class="nav-link" style="color: white;">实验室</a><span class="arrow"></span>
+  	<ul class="nav-dropdown">
+    <li><a href="https://music.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">在线音乐</a></li>
+    <li><a href="https://jd.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">京东商城返利</a></li>
+    <li><a href="https://weibo.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">微博反查发图者</a></li>
+    <li><a href="https://qiandao.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">自动签到系统</a></li>  
+    <li><a href="http://shop.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">淘宝热卖</a></li>  
+	<li><a href="http://tieba.dabianhaochi.cn/" class="nav-link" target="_blank" style="color: black;">贴吧签到系统</a></li>  
+	</ul>
+	</li>
+	</li>
+	<li><a href="https://github.com/Mathisdifficult" target="_blank" class="nav-link" style="color: white;">参与贡献</a></li>
+</ul>
+
+	 
+<article class="post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="page/artical2.html" target="_blank">F12大法——揭开所有网页的面纱</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>今天就带大家了解一个生活中基本没有使用过的按键——F12,来实现网页的资源下载<a class="read-more" href="page/artical2.html" target="_blank">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+       <a href="page/about.html" target="_blank">Crooked</a>
+        <time class="post-date" datetime="2017-10-05">05 October 2017</time>
+    </footer>
+</article>
+<article class="post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="page/atrical3.html" target="_blank">微博图片反查上传者</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>消息来源于 https://www.v2ex.com/t/388152 大概就是上传到微博的图片，在 URL 中会带上一串用户的 uid 标识。 比方说 http://wx1.sinaimg.cn/mw690/9d0d09abgy1fj0wcs7aewj20ij0sn12y.jpg 这张图片，提取文件名前 8 位 9d0d09ab， <a class="read-more" href="page/atrical3.html" target="_blank">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        <a href="page/about.html" target="_blank">Crooked</a>
+        
+        <time class="post-date" datetime="2017-09-05">05 September 2017</time>
+    </footer>
+</article>
+<article class="post">
+    <header class="post-header">
+        <h2 class="post-title"><a href="page/artical1.html" target="_blank">短信轰炸机原理的研究</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>前几天从温州坐动车回杭州，在候车时，连接上了一个名为@SRWS-FREE的WIFI（应该是上海铁路局为乘客提供的免费WIFI） <a class="read-more" href="page/artical1.html" target="_blank">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+       <a href="page/about.html" target="_blank">Crooked</a>
+        
+        <time class="post-date" datetime="2017-07-24">24 July 2017</time>
+	</footer>
+</article>
+
+</body>
+	
+
+</html>

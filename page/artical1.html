@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>短信轰炸机原理的研究 - YLZ</title>
+<meta name="author" content="YLZ">
+<meta name="description" content="前几天从温州坐动车回杭州，在候车时，连接上了一个名为@SRWS-FREE的WIFI（应该是上海铁路局为乘客提供的免费WIFI）">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="icon" href="../favicon.ico">
+<link rel="stylesheet" type="text/css" href="../CSS/artical.css">
+<link rel="stylesheet" type="text/css" href="../CSS/side.css">
+ <!--javascript for onfocus特效-->
+<script type="text/javascript">
+	window.onblur = function() {
+    document.title = "(●—●)奔溃啦！";
+};
+	window.onfocus = function() {
+    document.title = "短信轰炸机原理的研究 - YLZ";
+}
+    </script>
+    <!--javascript for live2d-->
+ 	<script type="text/javascript" src="../js/pixi.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../js/live2d.min.js" charset="utf-8"></script>
+  	<script type="text/javascript" src="../js/pixi-live2d.js" charset="utf-8"></script>
+<!--javascript for BAIDU share -->		
+<script>  
+            window._bd_share_config = {  
+                "common": {  
+                    "bdSnsKey": {},  
+                    "bdText": "",  
+                    "bdMini": "2",  
+                    "bdMiniList": false,  
+                    "bdPic": "",  
+                    "bdStyle": "0",  
+                    "bdSize": "16"  
+                },  
+                "slide": {  
+                    "type": "slide",  
+                    "bdImg": "1",  
+                    "bdPos": "right",  
+                    "bdTop": "151.5"  
+                },  
+                "image": {  
+                    "viewList": ["qzone", "tsina", "tqq", "renren", "weixin"],  
+                    "viewText": "分享到：",  
+                    "viewSize": "16"  
+                },  
+                "selectShare": {  
+                    "bdContainerClass": null,  
+                    "bdSelectMiniList": ["qzone", "tsina", "tqq", "renren", "weixin"]  
+                }  
+            };  
+            with(document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];  
+        </script>  
+</head>
+<body>
+ 	  	<!--<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="2" count="99" src="../js/canvas-nest.min.js"></script>-->	
+<div id="live2d"   style="position: fixed;bottom:38%;right: 98%;" ></div>
+<script type="text/javascript" src="../js/live2d-mod.js" charset="utf-8"></script>
+
+<ul id="nav" >
+    <li >
+  	<form id="search-form">
+  	<input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  	</form>
+	</li>
+	<li><a href="../index.html" class="nav-link" >首页</a></li>
+	<li><a href="../page/about.html" class="nav-link" target="_blank" >关于</a></li>
+	<li class="nav-dropdown-container language">
+  	<a class="nav-link" >多语言</a><span class="arrow"></span>
+  	<ul class="nav-dropdown">
+    <li><a href="" class="nav-link" target="_blank" >English</a></li>
+    <li><a href="" class="nav-link" target="_blank" > 繁体中文</a></li>
+  	</ul>
+	</li>
+	</li>
+	<li><a href="https://github.com/Mathisdifficult" target="_blank" class="nav-link" >参与贡献</a></li>
+</ul>
+
+<section id="content">
+<main id="main">
+<article class="post">
+<header class="post-head">
+<h1 class="post-title">短信轰炸机原理的研究</h1>
+<time datetime="2017-08-07" class="post-time">Aug 07 2017</time></header>
+<div class="post-content">
+	
+	<p>
+		前几天从温州坐动车回杭州，在候车时，连接上了一个名为@SRWS-FREE的WIFI（应该是上海铁路局为乘客提供的免费WIFI）
+	</p>
+	<a id="more"></a>
+	<p>
+		<img src="../img/artical-pic/artical1/SMS1.png" >
+	</p>
+	<p>
+		连上WIFI后有一个获取验证码的过程。上一篇我的文章里面介绍了Charles的配置教程，于是我打开了这个软件，并进行了抓包操作。不出意料，数据包是明文的，内容是http://jwf.cc:8080/regist/free.jsonp?callback=callback&mobile=PHONE NUMBER&agree=on&lang=zh&_=1501665590864
+	</p>
+	<p>
+		<img src="../img/artical-pic/artical1/SMS2.png" >
+	</p>
+	<P>
+		这个链接中包含了callback moblie agree lang - 这五个参数，其中callback的Value为callback，moblie为手机号，agree应该是用来控制获取验证码频率的，lang为验证码信息的语言，-这个参数的一串数字很奇怪，由于专业敏感，立刻与linux时间戳进行了对比，发现-的参数去掉后面三位即为当前的linux时间戳，因此我猜测后面三位应该是校验码。
+	</P>
+	<P>
+				<img src="../img/artical-pic/artical1/SMS3.jpg" >
+	</P>
+	<P>
+		了解了参数的作用后，我预判了一个时间戳，并利用Charles的Compose的功能进行了数据包的再次提交，几秒过后手机收到了验证码。再次进行实验，发现后台对linux时间戳并没有验证功能，无需修改时间戳，直接提交即可。但是服务器后端设置了获取间隔，频繁提交请求会提示取号过于频繁。
+	</P>
+	<P>
+						<img src="../img/artical-pic/artical1/SMS4.png" >
+	</P>
+	<p>
+		看来服务器后端设置了60s的提交间隔限制。设置60秒一次的repeat，效果如下。
+	</p>
+	<p>
+								<img src="../img/artical-pic/artical1/SMS5.png" >
+	</p>
+	<p>
+		这篇文章大部分在动车上面写的，保存了草稿，今天想起来完善了一下。但是今天再次测试发现手机收不到验证码了。使用了目前的linux时间戳和随机后三位也不行。
+	</p>
+	<p>
+										<img src="../img/artical-pic/artical1/SMS6.png" >
+	</p>
+	<p>
+		估计有2种可能。1.服务器后端对IP做了限制 2.每天有固定的后三位校验码。
+
+网络上很多的短信轰炸机都是利用了类似的接口，进行短信轰炸。
+	</p>
+	<p style="color: blue;">
+	防范方法
+	</p>
+	<p>
+如果你是个人的话，认命吧。
+
+如果你是网站维护人员，我建议从以下几点设置。
+
+1.参数里面加入验证码 滑动解锁等方式进行人机验证。
+
+2.对同一个手机号的每天发送次数作限制。如5次。
+
+3.对IP进行限制，同一IP发送5次验证码。
+	</p>
+</div>
+<footer class="post-foot"><section class="tags"><a class="tag" >短信轰炸</a></section></footer>
+</article>
+<nav class="page-nav clear" >
+	<a class="prev" href="atrical3.html" title="微博图片反查上传者">&laquo; 微博图片反查上传者</a>
+	<a class="next" href="" title="后面没有文章了哦">后面没有文章了哦 &raquo;</a>
+</nav>
+</main>
+</section>
+<footer id="footer">
+	<section class="foot-warp">
+		<section class="copyright">&copy; 2017 YLZ 
+		</section>
+	</section>
+</footer>
+<!-- UY BEGIN -->
+<div id="uyan_frame" style="width: 50%;text-align: center;margin:0 auto; "></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2122882"></script>
+<!-- UY END -->
+</body>
+</html>
